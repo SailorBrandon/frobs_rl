@@ -128,7 +128,11 @@ class BasicModel:
 
         log_folder = rospy.get_param(self.ns + "/model_params/log_folder")
         log_path   = self.log_path + log_folder 
-        assert not os.path.exists(log_path), "Log folder already exists, to log into that folder first delete it." 
+        if os.path.exists(log_path):
+            rospy.logwarn("Log folder already exists, creating a new one")
+            now = datetime.now()
+            dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
+            log_path = log_path + "_" + dt_string
         new_logger = configure(log_path+'/', ["stdout", "csv", "tensorboard"])
         self.model.set_logger(new_logger)
 
