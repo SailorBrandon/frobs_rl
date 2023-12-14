@@ -129,7 +129,7 @@ def spawn_model_in_gazebo(  pkg_name, model_urdf_file,
 
     if controllers_file is not None:
         # Load the robot controllers from YAML files in the parameter server
-        if ros_params.ros_load_yaml_from_pkg(pkg_name, controllers_file, ns=ns):
+        if ros_params.ros_load_yaml_from_pkg(pkg_name, controllers_file, ns='/'):
             rospy.logwarn("Robot controllers loaded successfully")
         else:
             rospy.logwarn("Error while loading robot controllers")
