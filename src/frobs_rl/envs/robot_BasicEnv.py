@@ -102,6 +102,7 @@ class RobotBasicEnv(gym.Env):
         self.controllers_list = controller_list
         self.reset_mode = reset_mode
         self.step_mode = step_mode
+        self.gazebo_freq=gazebo_freq
 
         # If Launch Gazebo, launch it
         if launch_gazebo:
@@ -135,7 +136,9 @@ class RobotBasicEnv(gym.Env):
         Function to send an action to the robot and get the observation and reward.
         """
         
-        rospy.loginfo("Step Env")
+        self.step_mode = 2
+        self.num_gazebo_steps = 100
+        rospy.loginfo("Step Env with Mode: " + str(self.step_mode) + "    One step time: " + str(self.num_gazebo_steps / self.gazebo_freq) + "s")
 
         self.info = {}
         self.observation = None
